@@ -17,8 +17,20 @@ namespace ElectionCalculatorService
             _dataAccess = new VoteDataAccess();
         }
 
+        public bool IsThatPeselJustVote(string pesel)
+        {
+            bool result = _dataAccess.IsThatPeselJustVote(pesel.GetHashCode());
+
+            return result;
+        }
+
         public void SaveVote(string pesel, int? candidateIndex)
         {
+            if (IsThatPeselJustVote(pesel))
+            {
+                return;
+            }
+
             var vote = new Vote()
             {
                 PeselHashCode = pesel.GetHashCode(),

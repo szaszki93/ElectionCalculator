@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E5666250-88F8-486E-AAC5-E0D893BEC556}</ProjectGuid>
+    <ProjectGuid>{1B63EAA5-C9A1-4B84-953A-B5EB77334A6A}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ElectionCalculatorDataAccess</RootNamespace>
-    <AssemblyName>ElectionCalculatorDataAccess</AssemblyName>
+    <RootNamespace>ElectionDatAccessLayer</RootNamespace>
+    <AssemblyName>ElectionDatAccessLayer</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -33,7 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ElectionContext.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Vote.cs" />
+    <Compile Include="VoteDataAccess.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -42,13 +49,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ElectionContext.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Vote.cs" />
-    <Compile Include="VoteDataAccess.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -67,8 +67,8 @@ namespace ElectionCalculatorView.ViewModel
         {
             var externalService = new ExternalService();
             CandidateBusiness = new CandidateBusiness(externalService);
-            ResultBusiness = new ResultBusiness(externalService);
             VoteBusiness = new VoteBusiness();
+            ResultBusiness = new ResultBusiness(externalService, VoteBusiness);
         }
     }
 }

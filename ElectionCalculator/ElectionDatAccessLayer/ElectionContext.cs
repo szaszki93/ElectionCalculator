@@ -9,6 +9,10 @@ namespace ElectionCalculatorDataAccess
 {
     public class ElectionContext : DbContext
     {
+        public ElectionContext() : base("ElectionDBString")
+        {
+        }
+
         public DbSet<Vote> Votes { get; set; }
     }
 }

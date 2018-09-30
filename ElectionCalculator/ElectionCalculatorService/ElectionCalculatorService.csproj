@@ -42,6 +42,7 @@
     <Compile Include="ExternalService.cs" />
     <Compile Include="Models\Candidate.cs" />
     <Compile Include="Models\Candidates.cs" />
+    <Compile Include="Models\Result.cs" />
     <Compile Include="Models\RootObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ResultBusiness.cs" />
@@ -89,8 +90,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ElectionCalculatorDataAccess\ElectionCalculatorDataAccess.csproj">
-      <Project>{e5666250-88f8-486e-aac5-e0d893bec556}</Project>
+    <ProjectReference Include="..\ElectionDatAccessLayer\ElectionCalculatorDataAccess.csproj">
+      <Project>{1B63EAA5-C9A1-4B84-953A-B5EB77334A6A}</Project>
       <Name>ElectionCalculatorDataAccess</Name>
     </ProjectReference>
   </ItemGroup>

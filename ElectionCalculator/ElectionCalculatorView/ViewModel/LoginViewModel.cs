@@ -61,6 +61,8 @@ namespace ElectionCalculatorView.ViewModel
         {
             if (string.IsNullOrEmpty(Pesel)) { return; }
 
+            if (mainViewModel.VoteBusiness.IsThatPeselJustVote(Pesel)) { return; }
+
             mainViewModel.OpenElectionView(Pesel);
         }
     }

@@ -9,9 +9,11 @@ namespace ElectionCalculatorService
     public class ResultBusiness
     {
         private readonly ExternalService _externalService;
+        private readonly VoteBusiness _voteBusiness;
 
-        public ResultBusiness(ExternalService externalService)
+        public ResultBusiness(ExternalService externalService, VoteBusiness voteBusiness)
         {
+            _voteBusiness = voteBusiness;
             _externalService = externalService;
         }
     }
