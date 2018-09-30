@@ -6,8 +6,55 @@
              xmlns:local="clr-namespace:ElectionCalculatorView.View"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel>
-        <Button Command ="{Binding ShowGraphCmd}" Height="23" Width="80">Show graph</Button>
-        <Button Command ="{Binding LogoutCmd}" Height="23" Width="80">Logout</Button>
-    </StackPanel>
+
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <Label HorizontalAlignment="Center" Content="Result for candidates"></Label>
+                <ListView HorizontalAlignment="Stretch"  ItemsSource="{Binding Data.Results}" IsSynchronizedWithCurrentItem="True">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Number of votes" DisplayMemberBinding="{Binding Path=NumberOfVotes}" />
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Candidate.Name}" />
+                            <GridViewColumn Header="Party" DisplayMemberBinding="{Binding Path=Candidate.Party}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1">
+                <Label HorizontalAlignment="Center" Content="Result for parties"></Label>
+                <ListView  HorizontalAlignment="Center"  ItemsSource="{Binding Data.PartyResults}" IsSynchronizedWithCurrentItem="True">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Number of votes" DisplayMemberBinding="{Binding Path=NumberOfVotes}" />
+                            <GridViewColumn Header="Party" DisplayMemberBinding="{Binding Path=Party}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+
+                    <TextBlock Text ="Number of invalid votes" Height="23"></TextBlock>
+                    <TextBlock Margin="10,0,0,0" Text ="{Binding Data.NumberOfInvalidVotes}" Height="23"></TextBlock>
+                </StackPanel>
+
+                <StackPanel  DockPanel.Dock="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
+
+                    <TextBlock Text ="Number of votes without vote right" Height="23"></TextBlock>
+                    <TextBlock Margin="10,0,0,0" Text ="{Binding Data.NumberOfVotesWithoutRight}" Height="23"></TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
+
+            <Button Command ="{Binding ShowGraphCmd}" Height="23" Width="80">Show graph</Button>
+            <Button Command ="{Binding LogoutCmd}" Height="23" Width="80">Logout</Button>
+        </StackPanel>
+    </DockPanel>
 </UserControl>

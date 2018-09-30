@@ -1,4 +1,4 @@
-﻿using ElectionCalculatorService.Models;
+﻿using ElectionCalculatorService.Entity;
 using System.Collections.Generic;
 using System.Linq;
 

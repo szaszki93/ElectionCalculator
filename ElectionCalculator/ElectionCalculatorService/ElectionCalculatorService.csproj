@@ -39,11 +39,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CandidateBusiness.cs" />
+    <Compile Include="Entity\CandidateResult.cs" />
+    <Compile Include="Entity\Disallowed.cs" />
+    <Compile Include="Entity\PartyResult.cs" />
+    <Compile Include="Entity\Person.cs" />
+    <Compile Include="Entity\Result.cs" />
+    <Compile Include="Entity\RootObjectBlocked.cs" />
+    <Compile Include="Entity\RootObjectCandidates.cs" />
     <Compile Include="ExternalService.cs" />
-    <Compile Include="Models\Candidate.cs" />
-    <Compile Include="Models\Candidates.cs" />
-    <Compile Include="Models\Result.cs" />
-    <Compile Include="Models\RootObject.cs" />
+    <Compile Include="Entity\Candidate.cs" />
+    <Compile Include="Entity\Candidates.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ResultBusiness.cs" />
     <Compile Include="VoteBusiness.cs" />

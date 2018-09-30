@@ -38,6 +38,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ElectionContext.cs" />
+    <Compile Include="Migrations\201809301303245_AddVotes.cs" />
+    <Compile Include="Migrations\201809301303245_AddVotes.Designer.cs">
+      <DependentUpon>201809301303245_AddVotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Vote.cs" />
     <Compile Include="VoteDataAccess.cs" />
@@ -51,6 +56,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201809301303245_AddVotes.resx">
+      <DependentUpon>201809301303245_AddVotes.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

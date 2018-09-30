@@ -1,11 +1,7 @@
-﻿using ElectionCalculatorService.Models;
-using ElectionCalculatorView.Base;
+﻿using ElectionCalculatorView.Base;
 using ElectionCalculatorView.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ElectionCalculatorView.ViewModel

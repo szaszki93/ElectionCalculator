@@ -1,10 +1,5 @@
 ﻿using ElectionCalculatorDataAccess;
-using ElectionCalculatorService.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectionCalculatorService
 {
@@ -15,6 +10,11 @@ namespace ElectionCalculatorService
         public VoteBusiness()
         {
             _dataAccess = new VoteDataAccess();
+        }
+
+        public List<Vote> GetVotes()
+        {
+            return _dataAccess.GetVotes();
         }
 
         public bool IsThatPeselJustVote(string pesel)
