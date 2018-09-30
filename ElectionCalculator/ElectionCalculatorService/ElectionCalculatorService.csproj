@@ -41,7 +41,7 @@
     <Compile Include="CandidateBusiness.cs" />
     <Compile Include="Entity\CandidateResult.cs" />
     <Compile Include="Entity\Disallowed.cs" />
-    <Compile Include="Entity\PartyResult.cs" />
+    <Compile Include="Entity\PartiesResults.cs" />
     <Compile Include="Entity\Person.cs" />
     <Compile Include="Entity\Result.cs" />
     <Compile Include="Entity\RootObjectBlocked.cs" />

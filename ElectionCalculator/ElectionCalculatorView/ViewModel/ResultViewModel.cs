@@ -18,13 +18,20 @@ namespace ElectionCalculatorView.ViewModel
             Data = mainViewModel.ResultBusiness.GetResult();
         }
 
-        public Result Data { get; set; }
+        public ResultViewModel(MainWindowViewModel mainViewModel, Result data) : base(mainViewModel)
+        {
+            ShowGraphCmd = new RelayCommand(x => ShowGraph());
+
+            Data = data;
+        }
+
+        public Result Data { get; private set; }
 
         public ICommand ShowGraphCmd { get; set; }
 
         private void ShowGraph()
         {
-            mainViewModel.OpenGraphView();
+            mainViewModel.OpenGraphView(Data);
         }
     }
 }

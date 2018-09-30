@@ -1,4 +1,5 @@
 ﻿using ElectionCalculatorService;
+using ElectionCalculatorService.Entity;
 using ElectionCalculatorView.Base;
 using System;
 using System.Collections.Generic;
@@ -48,9 +49,9 @@ namespace ElectionCalculatorView.ViewModel
             CurrentViewModel = new ElectionViewModel(this, pesel);
         }
 
-        public void OpenGraphView()
+        public void OpenGraphView(Result data)
         {
-            CurrentViewModel = new GraphViewModel(this);
+            CurrentViewModel = new GraphViewModel(this, data);
         }
 
         public void OpenLoginView()
@@ -61,6 +62,11 @@ namespace ElectionCalculatorView.ViewModel
         public void OpenResultView()
         {
             CurrentViewModel = new ResultViewModel(this);
+        }
+
+        public void OpenResultView(Result data)
+        {
+            CurrentViewModel = new ResultViewModel(this, data);
         }
 
         private void CreateBusinesses()

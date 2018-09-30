@@ -1,4 +1,7 @@
 ﻿using ElectionCalculatorView.Base;
+using ElectionCalculatorView.Helpers;
+using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ElectionCalculatorView.ViewModel
@@ -14,14 +17,13 @@ namespace ElectionCalculatorView.ViewModel
         public LoginViewModel(MainWindowViewModel mainViewModel) : base(mainViewModel)
         {
             LoginCmd = new RelayCommand(x => Login());
+
+            HideErrors();
         }
 
         public string FirstName
         {
-            get
-            {
-                return _FirstName;
-            }
+            get => _FirstName;
             set
             {
                 _FirstName = value;
@@ -29,12 +31,13 @@ namespace ElectionCalculatorView.ViewModel
             }
         }
 
+        public Visibility IsFirstNameErrorVisible { get; set; }
+        public Visibility IsLastNameErrorVisible { get; set; }
+        public Visibility IsPeselErrorVisible { get; set; }
+
         public string LastName
         {
-            get
-            {
-                return _LastName;
-            }
+            get => _LastName;
             set
             {
                 _LastName = value;
@@ -46,10 +49,7 @@ namespace ElectionCalculatorView.ViewModel
 
         public string Pesel
         {
-            get
-            {
-                return _Pesel;
-            }
+            get => _Pesel;
             set
             {
                 _Pesel = value;
@@ -57,11 +57,80 @@ namespace ElectionCalculatorView.ViewModel
             }
         }
 
+        private bool HaveEighteenYears()
+        {
+            DateTime bornDate = PeselValidator.GetDateFromPesel(Pesel).Value;
+
+            return DateTime.Today >= bornDate.AddYears(18);
+        }
+
+        private bool HaveError()
+        {
+            HideErrors();
+
+            bool hasError = false;
+
+            if (string.IsNullOrEmpty(FirstName))
+            {
+                IsFirstNameErrorVisible = Visibility.Visible;
+                OnPropertyChanged(nameof(IsFirstNameErrorVisible));
+                hasError = true;
+            }
+
+            if (string.IsNullOrEmpty(LastName))
+            {
+                IsLastNameErrorVisible = Visibility.Visible;
+                OnPropertyChanged(nameof(IsLastNameErrorVisible));
+                hasError = true;
+            }
+
+            if (!PeselValidator.IsPeselValid(Pesel))
+            {
+                IsPeselErrorVisible = Visibility.Visible;
+                OnPropertyChanged(nameof(IsPeselErrorVisible));
+                hasError = true;
+            }
+
+            return hasError;
+        }
+
+        private void HideErrors()
+        {
+            IsFirstNameErrorVisible = Visibility.Collapsed;
+            OnPropertyChanged(nameof(IsFirstNameErrorVisible));
+
+            IsLastNameErrorVisible = Visibility.Collapsed;
+            OnPropertyChanged(nameof(IsLastNameErrorVisible));
+
+            IsPeselErrorVisible = Visibility.Collapsed;
+            OnPropertyChanged(nameof(IsPeselErrorVisible));
+        }
+
         private void Login()
         {
-            if (string.IsNullOrEmpty(Pesel)) { return; }
+            if (HaveError()) { return; }
 
-            if (mainViewModel.VoteBusiness.IsThatPeselJustVote(Pesel)) { return; }
+            if (!HaveEighteenYears())
+            {
+                MessageBox.Show(
+                    "You cannot login because you don't have eighteen years.",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+                return;
+            }
+
+            if (mainViewModel.VoteBusiness.IsThatPeselJustVote(Pesel))
+            {
+                MessageBox.Show(
+                    "You cannot login because you have already voted.",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+                return;
+            }
 
             mainViewModel.OpenElectionView(Pesel);
         }

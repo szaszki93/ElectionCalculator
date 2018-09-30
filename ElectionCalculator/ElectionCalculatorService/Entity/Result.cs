@@ -26,7 +26,7 @@ namespace ElectionCalculatorService.Entity
 
             var parties = candidates.Select(x => x.Party).Distinct().ToList();
 
-            PartyResults = parties.Select(x => new PartyResult()
+            PartiesResults = parties.Select(x => new PartiesResults()
             {
                 Party = x,
                 NumberOfVotes = Results.Where(y => y.Candidate.Party == x).Sum(z => z.NumberOfVotes)
@@ -35,7 +35,7 @@ namespace ElectionCalculatorService.Entity
 
         public int NumberOfInvalidVotes { get; private set; }
         public int NumberOfVotesWithoutRight { get; private set; }
-        public List<PartyResult> PartyResults { get; private set; }
+        public List<PartiesResults> PartiesResults { get; private set; }
         public List<CandidateResult> Results { get; private set; }
     }
 }
