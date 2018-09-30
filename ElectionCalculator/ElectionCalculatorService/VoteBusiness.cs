@@ -1,4 +1,5 @@
-﻿using ElectionCalculatorService.Models;
+﻿using ElectionCalculatorDataAccess;
+using ElectionCalculatorService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace ElectionCalculatorService
 {
     public class VoteBusiness
     {
+        private VoteDataAccess _dataAccess;
+
         public void SaveVote(string pesel, int? candidateIndex)
         {
             var vote = new Vote()

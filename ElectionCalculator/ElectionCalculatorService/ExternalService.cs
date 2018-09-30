@@ -15,10 +15,6 @@ namespace ElectionCalculatorService
     {
         private const string CANDIDATES_WEB_PATH = "http://webtask.future-processing.com:8069/candidates";
 
-        public static void Main()
-        {
-        }
-
         public List<Candidate> GetCandidates()
         {
             WebClient client = new WebClient();
