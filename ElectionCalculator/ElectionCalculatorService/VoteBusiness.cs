@@ -10,7 +10,12 @@ namespace ElectionCalculatorService
 {
     public class VoteBusiness
     {
-        private VoteDataAccess _dataAccess;
+        private readonly VoteDataAccess _dataAccess;
+
+        public VoteBusiness()
+        {
+            _dataAccess = new VoteDataAccess();
+        }
 
         public void SaveVote(string pesel, int? candidateIndex)
         {
@@ -19,6 +24,8 @@ namespace ElectionCalculatorService
                 PeselHashCode = pesel.GetHashCode(),
                 CandidateIndex = candidateIndex
             };
+
+            _dataAccess.SaveVote(vote);
         }
     }
 }
