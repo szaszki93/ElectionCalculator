@@ -77,7 +77,7 @@
                 Width="80"
                 Height="23"
                 Command="{Binding ShowGraphCmd}">
-                Show graph
+                Show graphs
             </Button>
             <Button
                 Width="80"

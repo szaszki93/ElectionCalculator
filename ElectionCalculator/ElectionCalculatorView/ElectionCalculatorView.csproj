@@ -89,6 +89,7 @@
     <Compile Include="Base\LogoutViewModel.cs" />
     <Compile Include="Base\NotifyPropertyViewModel.cs" />
     <Compile Include="Helpers\PeselValidator.cs" />
+    <Compile Include="Model\OverrallResult.cs" />
     <Compile Include="Resource\Language.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

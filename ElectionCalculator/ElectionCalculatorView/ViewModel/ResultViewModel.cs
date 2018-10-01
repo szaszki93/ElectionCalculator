@@ -29,6 +29,8 @@ namespace ElectionCalculatorView.ViewModel
         public ResultViewModel(MainWindowViewModel mainViewModel, Result data) : base(mainViewModel)
         {
             ShowGraphCmd = new RelayCommand(x => ShowGraph());
+            ExportToPdfCmd = new RelayCommand(x => ExportToPdf());
+            ExportToCsvCmd = new RelayCommand(x => ExportToCsv());
 
             Data = data;
         }
@@ -79,7 +81,7 @@ namespace ElectionCalculatorView.ViewModel
 
         private void ExportOverallResult()
         {
-            string defaultFileName = "OverallResults.csv";
+            string defaultFileName = "OverrallResults.csv";
 
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
@@ -183,12 +185,12 @@ namespace ElectionCalculatorView.ViewModel
                 BaseFont baseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
                 Font font = new Font(baseFont, 12);
 
-                var spacer = new Paragraph(string.Empty)
+                var candidatesParagraph = new Paragraph(Language.CandidatesResults)
                 {
                     SpacingBefore = 10f,
                     SpacingAfter = 10f,
                 };
-                pdfDoc.Add(spacer);
+                pdfDoc.Add(candidatesParagraph);
 
                 var candidateTable = new PdfPTable(new[] { 1.5f, 2f, 2f })
                 {
@@ -209,7 +211,13 @@ namespace ElectionCalculatorView.ViewModel
                 }
 
                 pdfDoc.Add(candidateTable);
-                pdfDoc.Add(spacer);
+
+                var partiesParagraph = new Paragraph(Language.PartiesResults)
+                {
+                    SpacingBefore = 10f,
+                    SpacingAfter = 10f,
+                };
+                pdfDoc.Add(partiesParagraph);
 
                 var partyTable = new PdfPTable(new[] { 1.5f, 2f })
                 {
@@ -228,7 +236,13 @@ namespace ElectionCalculatorView.ViewModel
                 }
 
                 pdfDoc.Add(partyTable);
-                pdfDoc.Add(spacer);
+
+                var overrallParagraph = new Paragraph(Language.OverrallResults)
+                {
+                    SpacingBefore = 10f,
+                    SpacingAfter = 10f,
+                };
+                pdfDoc.Add(partiesParagraph);
 
                 var otherTable = new PdfPTable(new[] { 2f, 1.5f })
                 {

@@ -13,7 +13,7 @@
         <chartToolKit:Chart
             Name="candidatesBarChart"
             Title="{x:Static l:Language.CandidatesResults}"
-            Height="400"
+            Height="350"
             VerticalAlignment="Top">
             <chartToolKit:Chart.LegendStyle>
                 <Style TargetType="Control">
@@ -30,7 +30,7 @@
         <chartToolKit:Chart
             Name="partyBarChart"
             Title="{x:Static l:Language.PartiesResults}"
-            Height="200"
+            Height="180"
             VerticalAlignment="Top">
             <chartToolKit:Chart.LegendStyle>
                 <Style TargetType="Control">
@@ -42,6 +42,23 @@
                 DependentValuePath="NumberOfVotes"
                 IndependentValuePath="Party"
                 ItemsSource="{Binding Data.PartiesResults}" />
+        </chartToolKit:Chart>
+
+        <chartToolKit:Chart
+            Name="overrallBarChart"
+            Title="{x:Static l:Language.OverrallResults}"
+            Height="150"
+            VerticalAlignment="Top">
+            <chartToolKit:Chart.LegendStyle>
+                <Style TargetType="Control">
+                    <Setter Property="Width" Value="0" />
+                    <Setter Property="Height" Value="0" />
+                </Style>
+            </chartToolKit:Chart.LegendStyle>
+            <chartToolKit:BarSeries
+                DependentValuePath="NumberOfVotes"
+                IndependentValuePath="TypeVoteName"
+                ItemsSource="{Binding OverrallResults}" />
         </chartToolKit:Chart>
 
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">

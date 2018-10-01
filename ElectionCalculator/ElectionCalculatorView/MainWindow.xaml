@@ -7,9 +7,9 @@
     xmlns:viewmodels="clr-namespace:ElectionCalculatorView.ViewModel"
     xmlns:views="clr-namespace:ElectionCalculatorView.View"
     Title="Election Calculator"
-    WindowStartupLocation="CenterScreen"
     Width="1200"
-    Height="700"
+    Height="740"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">

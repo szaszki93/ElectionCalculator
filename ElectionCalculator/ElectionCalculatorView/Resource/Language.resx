@@ -153,6 +153,9 @@
   <data name="NumberOfVotesWithoutRight" xml:space="preserve">
     <value>Number of votes without vote right</value>
   </data>
+  <data name="OverrallResults" xml:space="preserve">
+    <value>Overrall results</value>
+  </data>
   <data name="PartiesResults" xml:space="preserve">
     <value>Results for parties</value>
   </data>

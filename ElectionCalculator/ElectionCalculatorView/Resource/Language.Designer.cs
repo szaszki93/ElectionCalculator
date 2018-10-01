@@ -169,6 +169,15 @@ namespace ElectionCalculatorView.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overrall results.
+        /// </summary>
+        public static string OverrallResults {
+            get {
+                return ResourceManager.GetString("OverrallResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Results for parties.
         /// </summary>
         public static string PartiesResults {
