@@ -8,7 +8,7 @@
     d:DesignHeight="700"
     d:DesignWidth="1200"
     mc:Ignorable="d">
-    <StackPanel VerticalAlignment="Center">
+    <StackPanel VerticalAlignment="Center" xml:lang="pl-Pl">
         <StackPanel.Resources>
             <DataTemplate x:Key="VoteCheckBox">
                 <CheckBox IsChecked="{Binding Path=IsChecked}" />
@@ -21,7 +21,9 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn CellTemplate="{StaticResource VoteCheckBox}" Header="Select" />
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" />
+                    <GridViewColumn
+                                                DisplayMemberBinding="{Binding Path=Name}"
+                        Header="Name" />
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Party}" Header="Party" />
                 </GridView>
             </ListView.View>

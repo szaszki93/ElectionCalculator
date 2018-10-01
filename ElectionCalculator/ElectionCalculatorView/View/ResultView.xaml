@@ -68,15 +68,25 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <StackPanel
-            HorizontalAlignment="Center"
-                        Orientation="Horizontal">
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
 
             <Button
                 Width="80"
                 Height="23"
                 Command="{Binding ShowGraphCmd}">
                 Show graph
+            </Button>
+            <Button
+                Width="80"
+                Height="23"
+                Command="{Binding ExportToCsvCmd}">
+                ExportToCsv
+            </Button>
+            <Button
+                Width="80"
+                Height="23"
+                Command="{Binding ExportToPdfCmd}">
+                ExportToPdf
             </Button>
             <Button
                 Width="80"

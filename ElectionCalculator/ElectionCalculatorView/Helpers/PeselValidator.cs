@@ -43,7 +43,7 @@ namespace ElectionCalculatorView.Helpers
 
         public static bool IsPeselValid(string pesel)
         {
-            if (pesel.Length != 11) { return false; }
+            if (pesel?.Length != 11) { return false; }
 
             bool isControlSumValid = IsControlSumValid(pesel);
 

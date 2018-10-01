@@ -1,7 +1,9 @@
 ﻿using ElectionCalculatorView.Base;
 using ElectionCalculatorView.Model;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ElectionCalculatorView.ViewModel
@@ -30,6 +32,14 @@ namespace ElectionCalculatorView.ViewModel
 
         private void Vote()
         {
+            var answer = MessageBox.Show(
+                   "Are you sure that you want to vote?",
+                   "Question",
+                   MessageBoxButton.YesNo,
+                   MessageBoxImage.Question);
+
+            if (answer == MessageBoxResult.No) { return; }
+
             int numberOfVotes = Candidates.Count(x => x.IsChecked);
 
             int? candidateIndex = numberOfVotes == 1

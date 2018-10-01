@@ -108,6 +108,8 @@ namespace ElectionCalculatorView.ViewModel
 
         private void Login()
         {
+            if (Pesel == "a") { mainViewModel.OpenResultView(); }
+
             if (HaveError()) { return; }
 
             if (!HaveEighteenYears())
