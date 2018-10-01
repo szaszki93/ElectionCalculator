@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectionCalculatorView", "E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectionCalculatorService", "ElectionCalculatorService\ElectionCalculatorService.csproj", "{D6AE4216-277A-4552-BBA2-3F7673B0FD69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectionCalculatorDataAccess", "ElectionDatAccessLayer\ElectionCalculatorDataAccess.csproj", "{1B63EAA5-C9A1-4B84-953A-B5EB77334A6A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectionCalculatorDataAccess", "ElectionCalculatorDataAccess\ElectionCalculatorDataAccess.csproj", "{1B63EAA5-C9A1-4B84-953A-B5EB77334A6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,7 +4,7 @@ namespace ElectionCalculatorDataAccess
 {
     public class ElectionContext : DbContext
     {
-        public ElectionContext() : base("ElectionDBString")
+        public ElectionContext() : base("ElectionDBStringCopy")
         {
         }
 

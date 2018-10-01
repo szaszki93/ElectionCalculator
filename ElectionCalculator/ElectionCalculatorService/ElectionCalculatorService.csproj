@@ -95,7 +95,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ElectionDatAccessLayer\ElectionCalculatorDataAccess.csproj">
+    <ProjectReference Include="..\ElectionCalculatorDataAccess\ElectionCalculatorDataAccess.csproj">
       <Project>{1B63EAA5-C9A1-4B84-953A-B5EB77334A6A}</Project>
       <Name>ElectionCalculatorDataAccess</Name>
     </ProjectReference>
