@@ -1,7 +1,8 @@
-﻿using ElectionCalculatorView.Base;
+﻿using ElectionCalculatorService.Entity;
+using ElectionCalculatorView.Base;
 using ElectionCalculatorView.Model;
+using ElectionCalculatorView.Resource;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -10,12 +11,12 @@ namespace ElectionCalculatorView.ViewModel
 {
     public class ElectionViewModel : LogoutViewModel
     {
-        private readonly string _pesel;
+        private readonly Person _person;
 
-        public ElectionViewModel(MainWindowViewModel mainViewModel, string pesel) : base(mainViewModel)
+        public ElectionViewModel(MainWindowViewModel mainViewModel, Person person) : base(mainViewModel)
         {
             VoteCmd = new RelayCommand(x => Vote());
-            _pesel = pesel;
+            _person = person;
             LoadCandidates();
         }
 
@@ -25,7 +26,7 @@ namespace ElectionCalculatorView.ViewModel
 
         private void LoadCandidates()
         {
-            var candidates = mainViewModel.CandidateBusiness.GetCandidates();
+            var candidates = mainViewModel.CandidateService.GetCandidates();
             var models = candidates.Select(x => new CandidateModel() { Name = x.Name, Party = x.Party }).ToList();
             Candidates = models;
         }
@@ -33,8 +34,8 @@ namespace ElectionCalculatorView.ViewModel
         private void Vote()
         {
             var answer = MessageBox.Show(
-                   "Are you sure that you want to vote?",
-                   "Question",
+                   Language.AreYouVote,
+                   Language.Question,
                    MessageBoxButton.YesNo,
                    MessageBoxImage.Question);
 
@@ -46,7 +47,7 @@ namespace ElectionCalculatorView.ViewModel
                     ? Candidates.IndexOf(Candidates.Single(x => x.IsChecked))
                     : (int?)null;
 
-            mainViewModel.VoteBusiness.SaveVote(_pesel, candidateIndex);
+            mainViewModel.VoteService.SaveVote(_person, candidateIndex);
 
             mainViewModel.OpenResultView();
         }

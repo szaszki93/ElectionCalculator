@@ -38,7 +38,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CandidateBusiness.cs" />
+    <Compile Include="CandidateService.cs" />
     <Compile Include="Entity\CandidateResult.cs" />
     <Compile Include="Entity\Disallowed.cs" />
     <Compile Include="Entity\PartiesResults.cs" />
@@ -50,8 +50,8 @@
     <Compile Include="Entity\Candidate.cs" />
     <Compile Include="Entity\Candidates.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ResultBusiness.cs" />
-    <Compile Include="VoteBusiness.cs" />
+    <Compile Include="ResultService.cs" />
+    <Compile Include="VoteService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c6752e45808247c2, processorArchitecture=MSIL">

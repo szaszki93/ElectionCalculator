@@ -1,5 +1,7 @@
-﻿using ElectionCalculatorView.Base;
+﻿using ElectionCalculatorService.Entity;
+using ElectionCalculatorView.Base;
 using ElectionCalculatorView.Helpers;
+using ElectionCalculatorView.Resource;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -108,33 +110,33 @@ namespace ElectionCalculatorView.ViewModel
 
         private void Login()
         {
-            if (Pesel == "a") { mainViewModel.OpenResultView(); }
-
             if (HaveError()) { return; }
 
             if (!HaveEighteenYears())
             {
                 MessageBox.Show(
-                    "You cannot login because you don't have eighteen years.",
-                    "Error",
+                    Language.HaveNotEighteenYears,
+                    Language.Error,
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
 
                 return;
             }
 
-            if (mainViewModel.VoteBusiness.IsThatPeselJustVote(Pesel))
+            var person = new Person() { Pesel = Pesel };
+
+            if (mainViewModel.VoteService.IsPersonJustVote(person))
             {
                 MessageBox.Show(
-                    "You cannot login because you have already voted.",
-                    "Error",
+                    Language.YouHaveAlreadyVoted,
+                    Language.Error,
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
 
                 return;
             }
 
-            mainViewModel.OpenElectionView(Pesel);
+            mainViewModel.OpenElectionView(person);
         }
     }
 }

@@ -1,14 +1,6 @@
 ﻿using ElectionCalculatorService;
 using ElectionCalculatorService.Entity;
 using ElectionCalculatorView.Base;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 
 namespace ElectionCalculatorView.ViewModel
 {
@@ -18,12 +10,12 @@ namespace ElectionCalculatorView.ViewModel
 
         public MainWindowViewModel()
         {
-            CreateBusinesses();
+            CreateServices();
 
             OpenLoginView();
         }
 
-        public CandidateBusiness CandidateBusiness { get; private set; }
+        public CandidateService CandidateService { get; private set; }
 
         public BaseViewModel CurrentViewModel
         {
@@ -41,12 +33,12 @@ namespace ElectionCalculatorView.ViewModel
             }
         }
 
-        public ResultBusiness ResultBusiness { get; private set; }
-        public VoteBusiness VoteBusiness { get; private set; }
+        public ResultService ResultService { get; private set; }
+        public VoteService VoteService { get; private set; }
 
-        public void OpenElectionView(string pesel)
+        public void OpenElectionView(Person person)
         {
-            CurrentViewModel = new ElectionViewModel(this, pesel);
+            CurrentViewModel = new ElectionViewModel(this, person);
         }
 
         public void OpenGraphView(Result data)
@@ -69,12 +61,12 @@ namespace ElectionCalculatorView.ViewModel
             CurrentViewModel = new ResultViewModel(this, data);
         }
 
-        private void CreateBusinesses()
+        private void CreateServices()
         {
             var externalService = new ExternalService();
-            CandidateBusiness = new CandidateBusiness(externalService);
-            VoteBusiness = new VoteBusiness();
-            ResultBusiness = new ResultBusiness(externalService, VoteBusiness, CandidateBusiness);
+            CandidateService = new CandidateService(externalService);
+            VoteService = new VoteService();
+            ResultService = new ResultService(externalService, VoteService, CandidateService);
         }
     }
 }

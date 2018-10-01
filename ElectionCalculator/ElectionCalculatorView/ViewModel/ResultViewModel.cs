@@ -9,18 +9,21 @@ using System.Windows;
 using Microsoft.Win32;
 using System.Text;
 using System.Collections.Generic;
+using ElectionCalculatorView.Resource;
 
 namespace ElectionCalculatorView.ViewModel
 {
     public class ResultViewModel : LogoutViewModel
     {
+        public const string DELIMITER = ",";
+
         public ResultViewModel(MainWindowViewModel mainViewModel) : base(mainViewModel)
         {
             ShowGraphCmd = new RelayCommand(x => ShowGraph());
             ExportToPdfCmd = new RelayCommand(x => ExportToPdf());
             ExportToCsvCmd = new RelayCommand(x => ExportToCsv());
 
-            Data = mainViewModel.ResultBusiness.GetResult();
+            Data = mainViewModel.ResultService.GetResult();
         }
 
         public ResultViewModel(MainWindowViewModel mainViewModel, Result data) : base(mainViewModel)
@@ -51,17 +54,15 @@ namespace ElectionCalculatorView.ViewModel
 
             if (saveFileDialog.ShowDialog() != true) { return; }
 
-            string delimiter = ",";
-
             StringBuilder sb = new StringBuilder();
             List<string> CsvRow = new List<string>
             {
-                "Number of votes",
-                "Name",
-                "Party"
+                Language.NumberOfVotes,
+                Language.Name,
+                Language.Party
             };
 
-            sb.AppendLine(string.Join(delimiter, CsvRow));
+            sb.AppendLine(string.Join(DELIMITER, CsvRow));
 
             foreach (var result in Data.Results)
             {
@@ -70,8 +71,42 @@ namespace ElectionCalculatorView.ViewModel
                 CsvRow.Add(result.Candidate.Name);
                 CsvRow.Add(result.Candidate.Party);
 
-                sb.AppendLine(string.Join(delimiter, CsvRow));
+                sb.AppendLine(string.Join(DELIMITER, CsvRow));
             }
+
+            File.WriteAllText(saveFileDialog.FileName, sb.ToString());
+        }
+
+        private void ExportOverallResult()
+        {
+            string defaultFileName = "OverallResults.csv";
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                FileName = defaultFileName,
+                AddExtension = true,
+                Filter = "CSV|*.csv"
+            };
+
+            if (saveFileDialog.ShowDialog() != true) { return; }
+
+            StringBuilder sb = new StringBuilder();
+            List<string> CsvRow = new List<string>
+            {
+                Language.NumberOfValidVotes,
+                Data.NumberOfValidVotes.ToString(),
+            };
+            sb.AppendLine(string.Join(DELIMITER, CsvRow));
+
+            CsvRow.Clear();
+            CsvRow.Add(Language.NumberOfInvalidVotes);
+            CsvRow.Add(Data.NumberOfInvalidVotes.ToString());
+            sb.AppendLine(string.Join(DELIMITER, CsvRow));
+
+            CsvRow.Clear();
+            CsvRow.Add(Language.NumberOfVotesWithoutRight);
+            CsvRow.Add(Data.NumberOfVotesWithoutRight.ToString());
+            sb.AppendLine(string.Join(DELIMITER, CsvRow));
 
             File.WriteAllText(saveFileDialog.FileName, sb.ToString());
         }
@@ -89,16 +124,14 @@ namespace ElectionCalculatorView.ViewModel
 
             if (saveFileDialog.ShowDialog() != true) { return; }
 
-            string delimiter = ",";
-
             StringBuilder sb = new StringBuilder();
             List<string> CsvRow = new List<string>
             {
-                "Number of votes",
-                "Party"
+                Language.NumberOfVotes,
+                Language.Party,
             };
 
-            sb.AppendLine(string.Join(delimiter, CsvRow));
+            sb.AppendLine(string.Join(DELIMITER, CsvRow));
 
             foreach (var result in Data.PartiesResults)
             {
@@ -106,7 +139,7 @@ namespace ElectionCalculatorView.ViewModel
                 CsvRow.Add(result.NumberOfVotes.ToString());
                 CsvRow.Add(result.Party);
 
-                sb.AppendLine(string.Join(delimiter, CsvRow));
+                sb.AppendLine(string.Join(DELIMITER, CsvRow));
             }
 
             File.WriteAllText(saveFileDialog.FileName, sb.ToString());
@@ -114,9 +147,16 @@ namespace ElectionCalculatorView.ViewModel
 
         private void ExportToCsv()
         {
-            ExportCandidatesResult();
-
-            ExportPartiesResult();
+            try
+            {
+                ExportCandidatesResult();
+                ExportPartiesResult();
+                ExportOverallResult();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), Language.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ExportToPdf()
@@ -138,10 +178,12 @@ namespace ElectionCalculatorView.ViewModel
                 PdfWriter writer = PdfWriter.GetInstance(pdfDoc, new FileStream(saveFileDialog.FileName, FileMode.Create));
                 pdfDoc.Open();
 
-                BaseFont bffont = BaseFont.CreateFont("C:\\WINDOWS\\Fonts\\ARIALUNI.TTF", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-                Font fontozel = new Font(bffont, 12);
+                string fontPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\Font\\ARIALUNI.TTF";
 
-                var spacer = new Paragraph("")
+                BaseFont baseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+                Font font = new Font(baseFont, 12);
+
+                var spacer = new Paragraph(string.Empty)
                 {
                     SpacingBefore = 10f,
                     SpacingAfter = 10f,
@@ -155,15 +197,15 @@ namespace ElectionCalculatorView.ViewModel
                     DefaultCell = { MinimumHeight = 16f }
                 };
 
-                candidateTable.AddCell("Number of votes");
-                candidateTable.AddCell("Name");
-                candidateTable.AddCell("Party");
+                candidateTable.AddCell(Language.NumberOfVotes);
+                candidateTable.AddCell(Language.Name);
+                candidateTable.AddCell(Language.Party);
 
                 foreach (CandidateResult result in Data.Results)
                 {
-                    candidateTable.AddCell(new Phrase(result.NumberOfVotes.ToString(), fontozel));
-                    candidateTable.AddCell(new Phrase(result.Candidate.Name, fontozel));
-                    candidateTable.AddCell(new Phrase(result.Candidate.Party, fontozel));
+                    candidateTable.AddCell(new Phrase(result.NumberOfVotes.ToString(), font));
+                    candidateTable.AddCell(new Phrase(result.Candidate.Name, font));
+                    candidateTable.AddCell(new Phrase(result.Candidate.Party, font));
                 }
 
                 pdfDoc.Add(candidateTable);
@@ -176,29 +218,32 @@ namespace ElectionCalculatorView.ViewModel
                     DefaultCell = { MinimumHeight = 16f }
                 };
 
-                partyTable.AddCell("Number of votes");
-                partyTable.AddCell("Party");
+                partyTable.AddCell(Language.NumberOfVotes);
+                partyTable.AddCell(Language.Party);
 
                 foreach (PartiesResults result in Data.PartiesResults)
                 {
-                    partyTable.AddCell(new Phrase(result.NumberOfVotes.ToString(), fontozel));
-                    partyTable.AddCell(new Phrase(result.Party, fontozel));
+                    partyTable.AddCell(new Phrase(result.NumberOfVotes.ToString(), font));
+                    partyTable.AddCell(new Phrase(result.Party, font));
                 }
 
                 pdfDoc.Add(partyTable);
                 pdfDoc.Add(spacer);
 
-                var otherTable = new PdfPTable(new[] { 1.5f, 2f })
+                var otherTable = new PdfPTable(new[] { 2f, 1.5f })
                 {
                     HorizontalAlignment = 1,
                     WidthPercentage = 100,
                     DefaultCell = { MinimumHeight = 16f }
                 };
 
-                otherTable.AddCell("Number of invalid votes");
-                otherTable.AddCell("Number of votes without vote right");
+                otherTable.AddCell(Language.NumberOfValidVotes);
+                otherTable.AddCell(Data.NumberOfValidVotes.ToString());
 
+                otherTable.AddCell(Language.NumberOfInvalidVotes);
                 otherTable.AddCell(Data.NumberOfInvalidVotes.ToString());
+
+                otherTable.AddCell(Language.NumberOfVotesWithoutRight);
                 otherTable.AddCell(Data.NumberOfVotesWithoutRight.ToString());
 
                 pdfDoc.Add(otherTable);
@@ -207,7 +252,7 @@ namespace ElectionCalculatorView.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.ToString(), Language.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

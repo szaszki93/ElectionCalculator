@@ -17,6 +17,7 @@ namespace ElectionCalculatorService.Entity
 
             NumberOfVotesWithoutRight = numberOfAllVotes - votesOfPeselWithRight.Count;
             NumberOfInvalidVotes = votesOfPeselWithRight.Count(x => x.CandidateIndex == null);
+            NumberOfValidVotes = votesOfPeselWithRight.Count - NumberOfInvalidVotes;
 
             Results = candidates.Select(x => new CandidateResult()
             {
@@ -34,6 +35,7 @@ namespace ElectionCalculatorService.Entity
         }
 
         public int NumberOfInvalidVotes { get; private set; }
+        public int NumberOfValidVotes { get; private set; }
         public int NumberOfVotesWithoutRight { get; private set; }
         public List<PartiesResults> PartiesResults { get; private set; }
         public List<CandidateResult> Results { get; private set; }

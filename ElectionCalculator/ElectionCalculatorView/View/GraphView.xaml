@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:chartToolKit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:ElectionCalculatorView.View"
+    xmlns:l="clr-namespace:ElectionCalculatorView.Resource"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="700"
     d:DesignWidth="1200"
@@ -12,7 +12,7 @@
     <StackPanel>
         <chartToolKit:Chart
             Name="candidatesBarChart"
-            Title="Candidates results"
+            Title="{x:Static l:Language.CandidatesResults}"
             Height="400"
             VerticalAlignment="Top">
             <chartToolKit:Chart.LegendStyle>
@@ -29,7 +29,7 @@
 
         <chartToolKit:Chart
             Name="partyBarChart"
-            Title="Parties results"
+            Title="{x:Static l:Language.PartiesResults}"
             Height="200"
             VerticalAlignment="Top">
             <chartToolKit:Chart.LegendStyle>

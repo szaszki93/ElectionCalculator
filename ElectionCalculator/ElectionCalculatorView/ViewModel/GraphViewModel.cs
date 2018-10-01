@@ -1,6 +1,5 @@
 ﻿using ElectionCalculatorService.Entity;
 using ElectionCalculatorView.Base;
-using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace ElectionCalculatorView.ViewModel
